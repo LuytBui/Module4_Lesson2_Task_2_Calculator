@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class CalculatorController {
 
     @GetMapping("/cal")
-    public String showIndex(){
+    public String showIndex() {
         return "index";
     }
 
@@ -20,37 +20,40 @@ public class CalculatorController {
         return modelAndView;
     }
 
-    @PostMapping(value="/cal", params = "addition")
+    @PostMapping(value = "/cal")
     public ModelAndView doAddition(@RequestParam double firstOperand,
-                                   @RequestParam double secondOperand){
-        String operator = " + ";
-        double result = firstOperand + secondOperand;
-        String expression = "" + firstOperand + operator + secondOperand + " = " + result;
-        return displayCalculateResult(expression);
+                                   @RequestParam double secondOperand,
+                                   @RequestParam String operator
+    ) {
+        double result;
+        String operatorPrint;
+        switch (operator) {
+            default:
+            case "addition": {
+                result = firstOperand + secondOperand;
+                operatorPrint = "+";
+                break;
+            }
+            case "subtraction": {
+                result = firstOperand - secondOperand;
+                operatorPrint = "-";
+                break;
+            }
+            case "multiplication": {
+                result = firstOperand * secondOperand;
+                operatorPrint = "*";
+                break;
+            }
+            case "division": {
+                result = firstOperand / secondOperand;
+                operatorPrint = "/";
+                break;
+            }
+        }
+        String expression = "" + firstOperand + operatorPrint + secondOperand + " = " + result;
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("expression", expression);
+        return modelAndView;
     }
 
-    @PostMapping(value="/cal", params = "subtraction")
-    public ModelAndView doSubtraction(@RequestParam double firstOperand,
-                                   @RequestParam double secondOperand){
-        String operator = " - ";
-        double result = firstOperand - secondOperand;
-        String expression = "" + firstOperand + operator + secondOperand + " = " + result;
-        return displayCalculateResult(expression);
-    }
-    @PostMapping(value="/cal", params = "multiplication")
-    public ModelAndView doMultiplication(@RequestParam double firstOperand,
-                                   @RequestParam double secondOperand){
-        String operator = " * ";
-        double result = firstOperand * secondOperand;
-        String expression = "" + firstOperand + operator + secondOperand + " = " + result;
-        return displayCalculateResult(expression);
-    }
-    @PostMapping(value="/cal", params = "division")
-    public ModelAndView doDivision(@RequestParam double firstOperand,
-                                   @RequestParam double secondOperand){
-        String operator = " / ";
-        double result = firstOperand / secondOperand;
-        String expression = "" + firstOperand + operator + secondOperand + " = " + result;
-        return displayCalculateResult(expression);
-    }
 }

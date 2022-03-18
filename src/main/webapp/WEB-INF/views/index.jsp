@@ -22,10 +22,10 @@
     <input type="number" name="firstOperand" placeholder="First operand...">
     <input type="number" name="secondOperand" placeholder="Second operand...">
     <br>
-    <button value="addition" name="addition">Addition(+)</button>
-    <button value="subtraction" name="subtraction">Subtraction(-)</button>
-    <button value="multiplication" name="multiplication">Multiplication(*)</button>
-    <button value="division" name="division">Division(/)</button>
+    <input type="submit" value="addition" name="operator"/>
+    <input type="submit" value="subtraction" name="operator"/>
+    <input type="submit" value="multiplication" name="operator"/>
+    <input type="submit" value="division" name="operator"/>
 </form>
 
 <p>${expression}</p>
